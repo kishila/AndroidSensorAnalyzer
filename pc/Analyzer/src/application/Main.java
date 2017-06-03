@@ -1,18 +1,21 @@
 package application;
 
-import chartComponent.AddValueButton;
-import chartComponent.ResetButton;
-import chartComponent.Chart;
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import bluetooth.AcceptThread;
+import chartComponent.AddValueButton;
+import chartComponent.Chart;
+import chartComponent.ResetButton;
 
 
 public class Main extends Application {
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws IOException {
         stage.setTitle("Line Chart Sample");
 
         BorderPane pane = new BorderPane();
@@ -24,6 +27,9 @@ public class Main extends Application {
 
         stage.setScene(scene);
         stage.show();
+
+    	AcceptThread acceptThread = new AcceptThread();
+    	acceptThread.start();
     }
 
     public static void main(String[] args) {
