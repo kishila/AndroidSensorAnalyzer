@@ -75,7 +75,7 @@ public class MainActivity extends Activity {
         Intent intent = this.getIntent();
         this.finish();
         this.startActivity(intent);
-    }絵ｄｂ、
+    }
 
     //----------------------------------------------------------------
     // 以下、ダイアログ関連
