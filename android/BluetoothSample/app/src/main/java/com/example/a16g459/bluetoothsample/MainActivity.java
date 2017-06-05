@@ -21,6 +21,8 @@ public class MainActivity extends Activity {
 
     private BluetoothTask bluetoothTask = new BluetoothTask(this);
 
+    private MessageThread messageThread;
+
     private ProgressDialog waitDialog;
     private EditText editText1;
     private EditText editText2;
@@ -34,12 +36,21 @@ public class MainActivity extends Activity {
         editText1 = (EditText) findViewById(R.id.editText1);
         editText2 = (EditText) findViewById(R.id.editText2);
 
-        Button sendBtn = (Button) findViewById(R.id.sendBtn);
-        sendBtn.setOnClickListener(new OnClickListener() {
+        final Button runBtn = (Button) findViewById(R.id.runBtn);
+        messageThread = new MessageThread(bluetoothTask);
+        runBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(runBtn.getText().toString().equals("STOP")) {
+                    runBtn.setText("START");
+                } else if (runBtn.getText().toString().equals("START")){
+                    runBtn.setText("STOP");
+                }
+/*
                 String msg = editText1.getText().toString();
+                editText1.getText().toString();
                 bluetoothTask.doSend(msg);
+                */
             }
         });
         Button resetBtn = (Button) findViewById(R.id.resetBtn);
