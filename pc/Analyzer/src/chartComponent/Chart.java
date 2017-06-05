@@ -10,7 +10,9 @@ public class Chart {
     final static NumberAxis yAxis = new NumberAxis();
 
     final public static LineChart<Number,Number> lineChart = new LineChart<Number,Number>(xAxis,yAxis);
-    final static XYChart.Series series = new XYChart.Series();
+    final static XYChart.Series xSeries = new XYChart.Series();
+    final static XYChart.Series ySeries = new XYChart.Series();
+    final static XYChart.Series zSeries = new XYChart.Series();
 
 	static {
         xAxis.setLabel("x label");
@@ -18,16 +20,24 @@ public class Chart {
         lineChart.setAnimated(false);
         lineChart.setCreateSymbols(false);
         lineChart.getStylesheets().add("css/chart.css");
-        series.setName("series title");
+        xSeries.setName("X Magnetic");
+        ySeries.setName("y Magnetic");
+        zSeries.setName("z Magnetic");
 
         update();
-        lineChart.getData().add(series);
+        lineChart.getData().add(xSeries);
+        lineChart.getData().add(ySeries);
+        lineChart.getData().add(zSeries);
 	}
 
 	public static void update(){
-		series.getData().clear();
+		xSeries.getData().clear();
+		ySeries.getData().clear();
+		zSeries.getData().clear();
         for(int i=0;i<50;i++){
-        	series.getData().add(new XYChart.Data(i, PlotData.value.get(i)));
+        	xSeries.getData().add(new XYChart.Data(i, SensorData.data1.value.get(i)));
+        	ySeries.getData().add(new XYChart.Data(i, SensorData.data2.value.get(i)));
+        	zSeries.getData().add(new XYChart.Data(i, SensorData.data3.value.get(i)));
         }
 	}
 }

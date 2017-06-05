@@ -35,9 +35,11 @@ public class Session implements Runnable {
                 int n = 0;
                 while ((n = btIn.read(buff)) > 0) {
                     String data = new String(buff, 0, n);
-                    log("Receive:"+data);
+                    //log("Receive:"+data);
                     btOut.write(data.toUpperCase().getBytes());
                     btOut.flush();
+                    String datas[] = decode(data);
+                    log("data1:" + datas[0]);
                 }
             } catch (Throwable t) {
                 t.printStackTrace();
@@ -54,5 +56,16 @@ public class Session implements Runnable {
 
         private static void log(String msg) {
             System.out.println("["+(new Date()) + "] " + msg);
+        }
+
+        /*
+         * 「:」区切りのデータを分離
+         */
+        private String[] decode(String msg){
+        	String data1 = msg.substring(0, msg.indexOf(":"));
+        	String tmp = msg.substring(msg.indexOf(":")+1);
+        	String data2 = tmp.substring(0, tmp.indexOf(":"));
+        	String data3 = tmp.substring(tmp.indexOf(":")+1);
+        	return new String[] { data1, data2, data3 };
         }
 }
