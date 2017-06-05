@@ -1,6 +1,11 @@
 package com.example.a16g459.bluetoothsample;
 
 import java.util.Set;
+import java.util.Timer;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -21,7 +26,8 @@ public class MainActivity extends Activity {
 
     private BluetoothTask bluetoothTask = new BluetoothTask(this);
 
-    private MessageThread messageThread;
+    private ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+    private ScheduledFuture future;
 
     private ProgressDialog waitDialog;
     private EditText editText1;
@@ -36,15 +42,18 @@ public class MainActivity extends Activity {
         editText1 = (EditText) findViewById(R.id.editText1);
         editText2 = (EditText) findViewById(R.id.editText2);
 
+
+
         final Button runBtn = (Button) findViewById(R.id.runBtn);
-        messageThread = new MessageThread(bluetoothTask);
         runBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(runBtn.getText().toString().equals("STOP")) {
                     runBtn.setText("START");
+                    future.cancel(true);
                 } else if (runBtn.getText().toString().equals("START")){
                     runBtn.setText("STOP");
+                    future =service.scheduleAtFixedRate(new MessageThread(bluetoothTask), 0, 1000, TimeUnit.MILLISECONDS);
                 }
 /*
                 String msg = editText1.getText().toString();
@@ -79,7 +88,7 @@ public class MainActivity extends Activity {
     }
 
     public void doSetResultText(String text) {
-        editText2.setText(text);
+        //editText2.setText(text);
     }
 
     protected void restart() {
