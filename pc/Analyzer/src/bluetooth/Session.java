@@ -39,7 +39,7 @@ public class Session implements Runnable {
                 int n = 0;
                 while ((n = btIn.read(buff)) > 0) {
                     String data = new String(buff, 0, n);
-                    //log("Receive:"+data);
+                    log("Receive:"+data);
                     btOut.write(data.toUpperCase().getBytes());
                     btOut.flush();
                     double datas[] = rounding(decode(data));

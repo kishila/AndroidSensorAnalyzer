@@ -32,12 +32,12 @@ public class Chart {
 
 	public static void update(){
 		xSeries.getData().clear();
-		ySeries.getData().clear();
-		zSeries.getData().clear();
+		//ySeries.getData().clear();
+		//zSeries.getData().clear();
         for(int i=0;i<50;i++){
-        	xSeries.getData().add(new XYChart.Data(i, SensorData.dataX.value.get(i)));
-        	ySeries.getData().add(new XYChart.Data(i, SensorData.dataY.value.get(i)));
-        	zSeries.getData().add(new XYChart.Data(i, SensorData.dataZ.value.get(i)));
+        	xSeries.getData().add(new XYChart.Data(i, SensorData.dataX.getData(i)));
+        	//ySeries.getData().add(new XYChart.Data(i, SensorData.dataY.getData(i)));
+        	//zSeries.getData().add(new XYChart.Data(i, SensorData.dataZ.getData(i)));
         }
 	}
 }

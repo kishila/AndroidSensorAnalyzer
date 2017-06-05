@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class PlotData {
 
-	public LinkedList<Double> value = new LinkedList<Double>();
+	private LinkedList<Double> value = new LinkedList<Double>();
 
 	PlotData() {
 		resetData();
@@ -25,5 +25,8 @@ public class PlotData {
 	public void addData(Double data) {
 		value.poll();
 		value.add(data);
+	}
+	public double getData(int n){
+		return value.get(n);
 	}
 }
