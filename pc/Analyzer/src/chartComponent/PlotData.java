@@ -1,12 +1,10 @@
 package chartComponent;
 
 import java.util.LinkedList;
-import java.util.Random;
 
 public class PlotData {
 
-	public LinkedList<Integer> value = new LinkedList<Integer>();
-	private Random rnd = new Random();
+	public LinkedList<Double> value = new LinkedList<Double>();
 
 	PlotData() {
 		resetData();
@@ -15,13 +13,12 @@ public class PlotData {
 	public void resetData(){
 		value.clear();
         for(int i=0;i<50;i++){
-        	value.add(rnd.nextInt(50));
+        	value.add(Math.random() * 10);
         }
 	}
 
 	public void addData(){
 		value.poll();
-        value.add(rnd.nextInt(50));
+        value.add(Math.random() * 10);
 	}
-
 }
