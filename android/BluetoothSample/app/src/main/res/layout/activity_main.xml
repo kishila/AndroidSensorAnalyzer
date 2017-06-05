@@ -24,7 +24,7 @@
             android:id="@+id/resetBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reset"
+            android:text="Connect Reset"
             tools:layout_editor_absoluteX="79dp"
             tools:layout_editor_absoluteY="211dp" />
 
