@@ -2,19 +2,19 @@ package com.example.a16g459.bluetoothsample;
 
 import java.util.TimerTask;
 
-/**
- * Created by KISHILA on 2017/06/05.
- */
+public class MessageThread extends TimerTask  {
 
-public class MessageThread extends TimerTask {
-
-    BluetoothTask bluetoothTask;
+    private BluetoothTask bluetoothTask;
 
     MessageThread(BluetoothTask task) {
         this.bluetoothTask = task;
     }
 
     public void run() {
-        bluetoothTask.doSend("test");
+        bluetoothTask.doSend(encodeMessage(SensorValuePool.getAccelerMeterValue()));
+    }
+
+    private String encodeMessage(String[] str){
+        return str[0] + ":" + str[1] + ":" + str[2];
     }
 }

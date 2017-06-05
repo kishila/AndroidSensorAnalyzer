@@ -7,6 +7,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -24,10 +26,15 @@ public class MainActivity extends Activity {
     private final static int DEVICES_DIALOG = 1;
     private final static int ERROR_DIALOG = 2;
 
+    private final static int MESSAGE_THREAD_REPEAT_MILLISECONDS = 100;
+
     private BluetoothTask bluetoothTask = new BluetoothTask(this);
 
     private ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture future;
+
+    private SensorManager manager;
+    private Sensor sensor;
 
     private ProgressDialog waitDialog;
     private EditText editText1;
@@ -42,6 +49,8 @@ public class MainActivity extends Activity {
         editText1 = (EditText) findViewById(R.id.editText1);
         editText2 = (EditText) findViewById(R.id.editText2);
 
+        manager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        sensor = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
 
         final Button runBtn = (Button) findViewById(R.id.runBtn);
@@ -53,7 +62,7 @@ public class MainActivity extends Activity {
                     future.cancel(true);
                 } else if (runBtn.getText().toString().equals("START")){
                     runBtn.setText("STOP");
-                    future =service.scheduleAtFixedRate(new MessageThread(bluetoothTask), 0, 1000, TimeUnit.MILLISECONDS);
+                    future =service.scheduleAtFixedRate(new MessageThread(bluetoothTask), 0, MESSAGE_THREAD_REPEAT_MILLISECONDS, TimeUnit.MILLISECONDS);
                 }
 /*
                 String msg = editText1.getText().toString();
@@ -79,6 +88,15 @@ public class MainActivity extends Activity {
         bluetoothTask.init();
         // ペアリング済みデバイスの一覧を表示してユーザに選ばせる。
         showDialog(DEVICES_DIALOG);
+
+        // センサーデータの取得を開始
+        manager.registerListener(new SensorValuePool(), sensor, SensorManager.SENSOR_DELAY_FASTEST);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        manager.unregisterListener(new SensorValuePool());
     }
 
     @Override
