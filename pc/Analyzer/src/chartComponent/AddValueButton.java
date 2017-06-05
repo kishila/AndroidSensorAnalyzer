@@ -13,9 +13,9 @@ public class AddValueButton {
 	    button.setOnAction(new EventHandler<ActionEvent>() {
 	        @Override
 	        public void handle(ActionEvent e) {
-	        	SensorData.data1.addData();
-	        	SensorData.data2.addData();
-	        	SensorData.data3.addData();
+	        	SensorData.dataX.addData(0.1);
+	        	SensorData.dataY.addData(0.1);
+	        	SensorData.dataZ.addData(0.1);
 	        	Chart.update();
 	        }
 	    });

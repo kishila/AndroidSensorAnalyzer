@@ -13,9 +13,9 @@ public class ResetButton extends Button {
 	    button.setOnAction(new EventHandler<ActionEvent>() {
 	        @Override
 	        public void handle(ActionEvent e) {
-	        	SensorData.data1.resetData();
-	        	SensorData.data2.resetData();
-	        	SensorData.data3.resetData();
+	        	SensorData.dataX.resetData();
+	        	SensorData.dataY.resetData();
+	        	SensorData.dataZ.resetData();
 	        	Chart.update();
 	        }
 	    });
