@@ -50,8 +50,8 @@ public class MainActivity extends Activity {
         editText2 = (EditText) findViewById(R.id.editText2);
 
         manager = (SensorManager)getSystemService(SENSOR_SERVICE);
-        sensor = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
+        // sensor = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER); // 加速度センサ指定
+        sensor = manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD); // 地磁気センサ指定
 
         final Button runBtn = (Button) findViewById(R.id.runBtn);
         runBtn.setOnClickListener(new OnClickListener() {
