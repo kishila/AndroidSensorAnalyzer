@@ -1,29 +1,32 @@
 package chartComponent;
 
-import java.util.ArrayDeque;
 import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Random;
 
 public class PlotData {
 
-	public static LinkedList<Integer> value = new LinkedList<Integer>();
-	private static Random rnd = new Random();
+	private LinkedList<Double> value = new LinkedList<Double>();
 
-	static {
+	PlotData() {
 		resetData();
 	}
 
-	static public void resetData(){
+	public void resetData(){
 		value.clear();
         for(int i=0;i<50;i++){
-        	value.add(rnd.nextInt(50));
+        	// value.add(Math.random() * 10);
+        	value.add(0.0);
         }
 	}
 
-	static public void addData(){
+	public void addData(){
 		value.poll();
-        value.add(rnd.nextInt(50));
+        value.add(Math.random() * 10);
 	}
-
+	public void addData(Double data) {
+		value.poll();
+		value.add(data);
+	}
+	public double getData(int n){
+		return value.get(n);
+	}
 }
